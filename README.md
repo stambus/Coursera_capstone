@@ -24,7 +24,7 @@ https://www.1551.lt/paieska/
 
 This website contained addresses specific to companies names, which I utilised from initial data-set.
 After I got all the addresses, I had to make another script in order to get latitutde and longitude coords based on adresses (because final goal was to visual data using maps).
-In order to get coords, I used google's geocoder API.
+In order to get coords, I used google's geocoder API and excellent geocoding script written by Shane Lynn
 
 ## Exploratory data analysis
 
