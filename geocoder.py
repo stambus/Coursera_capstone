@@ -33,13 +33,13 @@ logger.addHandler(ch)
 # With a "Google Maps Geocoding API" key from https://console.developers.google.com/apis/,
 # the daily limit will be 2500, but at a much faster rate.
 # Example: API_KEY = 'AIzaSyC9azed9tLdjpZNjg2_kVePWvMIBq154eA'
-API_KEY = None
+API_KEY = "AIzaSyAOarXNG1rlkrT_y_vMzU0mpufQim062YA"
 # Backoff time sets how many minutes to wait between google pings when your API limit is hit
 BACKOFF_TIME = 30
 # Set your output file name here.
-output_filename = 'data/output-2015.csv'
+output_filename = 'output-adresses-coords.csv'
 # Set your input file here
-input_filename = "data/PPR-2015.csv"
+input_filename = "./enterprise-addresses.csv"
 # Specify the column name in your input data that contains addresses here
 address_column_name = "Address"
 # Return Full Google Results? If True, full JSON results from Google are included in output
@@ -48,8 +48,8 @@ RETURN_FULL_RESULTS = False
 # ------------------ DATA LOADING --------------------------------
 
 # Read the data to a Pandas Dataframe
-data = pd.read_csv(input_filename, encoding='utf8')
-
+data = pd.read_csv(input_filename, encoding='L4', index_col=False)
+print(data.head())
 if address_column_name not in data.columns:
     raise ValueError("Missing Address column in input data")
 
@@ -58,9 +58,9 @@ if address_column_name not in data.columns:
 addresses = data[address_column_name].tolist()
 
 # **** DEMO DATA / IRELAND SPECIFIC! ****
-# We know that these addresses are in Ireland, and there's a column for county, so add this for accuracy.
+# We know that these addresses are in Lithuania, and there's a column for county, so add this for accuracy.
 # (remove this line / alter for your own dataset)
-addresses = (data[address_column_name] + ',' + data['County'] + ',Ireland').tolist()
+addresses = (data[address_column_name] + ','  + ',Lithuania').tolist()
 
 
 # ------------------	FUNCTION DEFINITIONS ------------------------
@@ -171,4 +171,4 @@ for address in addresses:
 # All done
 logger.info("Finished geocoding all addresses")
 # Write the full results to csv using the pandas library.
-pd.DataFrame(results).to_csv(output_filename, encoding='utf8')
+pd.DataFrame(results).to_csv(output_filename, encoding='L4')
